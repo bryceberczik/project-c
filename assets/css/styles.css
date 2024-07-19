@@ -93,6 +93,11 @@ input[type=number] {
     border: 0;
 }
 
+#special-color {
+
+  color: #9ABDE6;
+}
+
 #income-btn {
 
     background-color: #7482E1;

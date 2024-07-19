@@ -14,7 +14,7 @@
 <body>
     
     <header>
-        <h1>Project C</h1>
+        <h1>Project <span id="special-color">C</span></h1>
 
         <div>
         <button class="header-buttons" id="income-btn">Add Income</button>
@@ -23,27 +23,30 @@
     </header>
     <main>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-backdrop="static" data-bs-keyboard="false">
-  Launch demo modal
-</button>
+      <h1 class="text-center"><span id="userSpan"></span></h1>
+      <h1 class="text-center"><span id="initialSpan"></span></h1>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" id="initialModal" tabindex="-1" aria-labelledby="initialModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Welcome to Project C</h1>
+        <h1 class="modal-title fs-5" id="initialModalLabel">Welcome to Project C</h1>
       </div>
       <div class="modal-body">
-        <p>In order to begin your financing journey, you must set an initial amount.</p>
+        <p>In order to begin your financing journey, you must specify your name the initial amount.</p>
+        
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="nameInput" placeholder="Enter your name">
+        </div>
         <div class="input-group">
           <span>$</span>
           <input type="number" class="form-control" id="initialAmountInput" placeholder="Enter initial amount">
         </div>
+        <p id="error">&nbsp;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Start calculating</button>
+        <button id="captureForm" type="button" class="btn btn-primary">Start calculating</button>
+        
       </div>
     </div>
   </div>
