@@ -93,6 +93,18 @@ input[type=number] {
     border: 0;
 }
 
+.shown-input {
+
+  margin: 50px;
+  color: #7482E1;
+}
+
+#error {
+
+  color: red;
+  text-align: center;
+}
+
 #special-color {
 
   color: #9ABDE6;
