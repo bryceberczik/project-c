@@ -28,17 +28,27 @@ document.addEventListener('DOMContentLoaded', function() {
         userName = document.getElementById('nameInput').value;
         initialAmount = document.getElementById('initialAmountInput').value;
 
-        localStorage.setItem('userName', userName);
-        localStorage.setItem('initialAmount', initialAmount);
+        const errorMessage = document.getElementById('error');
+        const initialModal = bootstrap.Modal.getInstance(document.getElementById('initialModal'));
+        
+        if (userName === '' || initialAmount === '') {
 
-        var initialModal = bootstrap.Modal.getInstance(document.getElementById('initialModal'));
-        initialModal.hide();
+            errorMessage.textContent = `All fields are required. Please fill out the form completely.`;
+
+        } else {
+
+            localStorage.setItem('userName', userName);
+            localStorage.setItem('initialAmount', initialAmount);
+
+            initialModal.hide();
+        }
     });
-
-    var initialModalElement = document.getElementById('initialModal');
+    
+    let initialModalElement = document.getElementById('initialModal');
     
     initialModalElement.addEventListener('hidden.bs.modal', function () {
 
+        
         let userName = localStorage.getItem('userName');
         let initialAmount = localStorage.getItem('initialAmount');
 
@@ -54,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (initialAmount === null) {
             initialSpan.textContent = '';
         } else {
-            initialSpan.textContent = `Current balance: $${initialAmount}.`;
+            initialSpan.textContent = `Current balance: $${initialAmount}`;
         }
     });
 
@@ -77,7 +87,7 @@ function init() {
         if (initialAmount === null) {
             initialSpan.textContent = '';
         } else {
-            initialSpan.textContent = `Current balance: $${initialAmount}.`;
+            initialSpan.textContent = `Current balance: $${initialAmount}`;
         }
 }
 
