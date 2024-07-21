@@ -17,8 +17,8 @@
         <h1>Project <span id="special-color">C</span></h1>
 
         <div>
-        <button class="header-buttons" id="income-btn">Add Income</button>
-        <button class="header-buttons" id="expense-btn">Add Expenses</button>
+        <button type="button" class="btn btn-primary header-buttons" data-bs-toggle="modal" data-bs-target="#addIncomeModal" id="income-btn">Add Income</button>
+        <button  class="header-buttons" id="expense-btn">Add Expenses</button>
         </div>
     </header>
     <main>
@@ -26,6 +26,16 @@
       <h1 class="text-center shown-input"><span id="userSpan"></span></h1>
       <h1 class="text-center shown-input"><span id="initialSpan"></span></h1>
 
+      <div class="tracker">
+        <div class="income-expense">
+          <h2 class="tracker-h2">Income</h2>
+        </div>
+
+        <div class="expense-tracker">
+          <h2 class="tracker-h2">Expenses</h2>
+        </div>
+      </div>
+      <!-- INITIAL MODAL -->
 <div class="modal fade" id="initialModal" tabindex="-1" aria-labelledby="initialModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -47,6 +57,26 @@
       <div class="modal-footer">
         <button id="captureForm" type="button" class="btn btn-primary">Start calculating</button>
         
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- ADD MODAL -->
+
+<!-- Modal -->
+<div class="modal fade" id="addIncomeModal" tabindex="-1" aria-labelledby="addIncomeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addIncomeModalLabel">Adding Income</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Submit income</button>
       </div>
     </div>
   </div>
