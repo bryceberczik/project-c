@@ -99,7 +99,33 @@ input[type=number] {
   color: #7482E1;
 }
 
+.tracker {
+  display: flex; /* This makes it a flex container and lays out its children in a row */
+  justify-content: space-between; /* This spaces out the children evenly */
+}
+
+.income-tracker, .expense-tracker {
+
+  border: 5px solid #7482E1;
+  border-radius: 20px;
+  flex: 1;
+  margin: 0 10px; 
+}
+
+.tracker-h2 {
+
+  text-align: center;
+  color: #7482E1;
+  margin: 20px;
+}
+
 #error {
+
+  color: red;
+  text-align: center;
+}
+
+#error1 {
 
   color: red;
   text-align: center;
