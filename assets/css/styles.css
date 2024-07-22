@@ -142,8 +142,18 @@ input[type=number] {
     border: 1px solid #7482E1;
 }
 
+#income-btn:hover {
+
+  background-color: #2374F7;
+}
+
 #expense-btn {
 
     background-color: #E07574;
     border: 1px solid #E07574;
+}
+
+#expense-btn:hover {
+
+  background-color: red;
 }

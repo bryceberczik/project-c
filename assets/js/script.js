@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('submitIncome').addEventListener('click', function() {
 
-        const income = document.getElementById('incomeAmount').value;
+        const income = parseFloat(document.getElementById('incomeAmount').value);
         const subject = document.getElementById('incomeSubject').value;
         const errorMessage = document.getElementById('error1');
         const addIncomeModal = bootstrap.Modal.getInstance(document.getElementById('addIncomeModal'));
@@ -93,6 +93,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             errorMessage.textContent = `All fields are required. Please fill out the form completely.`;
         } else {
+
+            let initialAmount = parseFloat(localStorage.getItem('initialAmount')) || 0; // Retrieve and parse initialAmount
+            initialAmount += income; // Subtract income from initialAmount
 
         let incomes = JSON.parse(localStorage.getItem('incomes')) || [];
 
@@ -104,10 +107,14 @@ document.addEventListener('DOMContentLoaded', function() {
         incomes.push(newIncome);
 
         localStorage.setItem('incomes', JSON.stringify(incomes));
+        localStorage.setItem('initialAmount', initialAmount.toString());
 
         let incomeItem = document.createElement('p');
         incomeItem.textContent = `+ ${subject}: $${income}`
         incomeList.appendChild(incomeItem);
+
+        let initialSpan = document.getElementById('initialSpan')
+        initialSpan.textContent = `Current balance: $${initialAmount}`;
 
         incomeItem.style.color = '#68F553';
         incomeItem.style.textAlign = 'center';
