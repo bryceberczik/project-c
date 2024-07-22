@@ -1,5 +1,18 @@
-document.getElementById('initialAmountInput').addEventListener('input', function(e) {
-    this.value = this.value.replace(/[^0-9]/g, '');
+document.addEventListener('DOMContentLoaded', function() {
+    const initialAmountInput = document.getElementById('initialAmountInput');
+    const incomeAmount = document.getElementById('incomeAmount');
+
+    if (initialAmountInput) {
+        initialAmountInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
+
+    if (incomeAmount) {
+        incomeAmount.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
 });
 
 let userName;
@@ -68,7 +81,65 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    document.getElementById('submitIncome').addEventListener('click', function() {
+
+        const income = document.getElementById('incomeAmount').value;
+        const subject = document.getElementById('incomeSubject').value;
+        const errorMessage = document.getElementById('error1');
+        const addIncomeModal = bootstrap.Modal.getInstance(document.getElementById('addIncomeModal'));
+        const incomeList = document.getElementById('income-list');
+    
+        if (income === '' || subject === '') {
+            
+            errorMessage.textContent = `All fields are required. Please fill out the form completely.`;
+        } else {
+
+        let incomes = JSON.parse(localStorage.getItem('incomes')) || [];
+
+        let newIncome = {
+            amount: income,
+            subject: subject
+        };
+
+        incomes.push(newIncome);
+
+        localStorage.setItem('incomes', JSON.stringify(incomes));
+
+        let incomeItem = document.createElement('p');
+        incomeItem.textContent = `+ ${subject}: $${income}`
+        incomeList.appendChild(incomeItem);
+
+        incomeItem.style.color = '#68F553';
+        incomeItem.style.textAlign = 'center';
+        incomeItem.style.fontSize = '30px';
+        
+        addIncomeModal.hide();
+        income.value = '';
+        subject.value = '';
+        }
+    })
+
 });
+
+function renderIncomes() {
+
+    const incomeList = document.getElementById('income-list');
+
+    incomeList.innerHTML = '';
+
+    let incomes = JSON.parse(localStorage.getItem('incomes')) || [];
+
+    incomes.forEach(income => {
+        let incomeItem = document.createElement('p');
+        incomeItem.textContent = `+ ${income.subject}: $${income.amount}`;
+        incomeList.appendChild(incomeItem);
+
+        incomeItem.style.color = '#68F553';
+        incomeItem.style.textAlign = 'center';
+        incomeItem.style.fontSize = '30px';
+    });
+    
+}
 
 function init() {
 
@@ -89,9 +160,9 @@ function init() {
         } else {
             initialSpan.textContent = `Current balance: $${initialAmount}`;
         }
+
+        renderInitialModal();
+        renderIncomes();
 }
 
 init();
-
-renderInitialModal();
-
