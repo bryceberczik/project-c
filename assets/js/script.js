@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const initialAmountInput = document.getElementById('initialAmountInput');
     const incomeAmount = document.getElementById('incomeAmount');
+    const expenseAmount = document.getElementById('expenseAmount');
 
     if (initialAmountInput) {
         initialAmountInput.addEventListener('input', function() {
@@ -10,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (incomeAmount) {
         incomeAmount.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
+
+    if (expenseAmount) {
+        expenseAmount.addEventListener('input', function() {
             this.value = this.value.replace(/[^0-9]/g, '');
         });
     }
@@ -126,6 +133,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
 
+    document.getElementById('submitExpense').addEventListener('click', function() {
+
+        const expense = parseFloat(document.getElementById('expenseAmount').value);
+        const subject = document.getElementById('expenseSubject').value;
+        const errorMessage = document.getElementById('error2');
+        const addExpenseModal = bootstrap.Modal.getInstance(document.getElementById('addExpenseModal'));
+        const expenseList = document.getElementById('expense-list');
+    
+        if (expense === '' || subject === '') {
+            
+            errorMessage.textContent = `All fields are required. Please fill out the form completely.`;
+        } else {
+
+            let initialAmount = parseFloat(localStorage.getItem('initialAmount')) || 0;
+            initialAmount -= expense;
+
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+        let newExpense = {
+            amount: expense,
+            subject: subject
+        };
+
+        expenses.push(newExpense);
+
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+        localStorage.setItem('initialAmount', initialAmount.toString());
+
+        let expenseItem = document.createElement('p');
+        expenseItem.textContent = `- ${subject}: $${expense}`
+        expenseList.appendChild(expenseItem);
+
+        let initialSpan = document.getElementById('initialSpan')
+        initialSpan.textContent = `Current balance: $${initialAmount}`;
+
+        expenseItem.style.color = '#E07574';
+        expenseItem.style.textAlign = 'center';
+        expenseItem.style.fontSize = '30px';
+        
+        addExpenseModal.hide();
+        expense.value = '';
+        subject.value = '';
+        }
+    })
 });
 
 function renderIncomes() {
@@ -144,6 +195,26 @@ function renderIncomes() {
         incomeItem.style.color = '#68F553';
         incomeItem.style.textAlign = 'center';
         incomeItem.style.fontSize = '30px';
+    });
+    
+}
+
+function renderExpenses() {
+
+    const expenseList = document.getElementById('expense-list');
+
+    expenseList.innerHTML = '';
+
+    let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+    expenses.forEach(expense => {
+        let expenseItem = document.createElement('p');
+        expenseItem.textContent = `- ${expense.subject}: $${expense.amount}`;
+        expenseList.appendChild(expenseItem);
+
+        expenseItem.style.color = '#E07574';
+        expenseItem.style.textAlign = 'center';
+        expenseItem.style.fontSize = '30px';
     });
     
 }
@@ -170,6 +241,7 @@ function init() {
 
         renderInitialModal();
         renderIncomes();
+        renderExpenses();
 }
 
 init();

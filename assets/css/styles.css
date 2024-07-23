@@ -100,8 +100,10 @@ input[type=number] {
 }
 
 .tracker {
-  display: flex; /* This makes it a flex container and lays out its children in a row */
-  justify-content: space-between; /* This spaces out the children evenly */
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .income-tracker, .expense-tracker {
@@ -131,6 +133,12 @@ input[type=number] {
   text-align: center;
 }
 
+#error2 {
+
+  color: red;
+  text-align: center;
+}
+
 #special-color {
 
   color: #9ABDE6;
@@ -138,13 +146,14 @@ input[type=number] {
 
 #income-btn {
 
-    background-color: #7482E1;
-    border: 1px solid #7482E1;
+    background-color: #68F553;
+    border: 1px solid #68F553;
 }
 
 #income-btn:hover {
 
-  background-color: #2374F7;
+  background-color: green;
+  border: 1px solid green;
 }
 
 #expense-btn {
@@ -156,4 +165,5 @@ input[type=number] {
 #expense-btn:hover {
 
   background-color: red;
+  border: 1px solid red;
 }
