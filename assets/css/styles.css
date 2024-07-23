@@ -167,3 +167,16 @@ input[type=number] {
   background-color: red;
   border: 1px solid red;
 }
+
+@media (max-width: 768px) {
+  .tracker {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .income-tracker, .expense-tracker {
+    
+    margin: 20px 0;
+}
+
+}
