@@ -244,4 +244,21 @@ function init() {
         renderExpenses();
 }
 
+function updateButtonLabels() {
+    const addIncomeBtn = document.getElementById('income-btn');
+    const addExpenseBtn = document.getElementById('expense-btn');
+  
+    if (window.innerWidth <= 768) {
+      addIncomeBtn.textContent = '+';
+      addExpenseBtn.textContent = '-';
+    } else {
+      addIncomeBtn.textContent = 'Add Income';
+      addExpenseBtn.textContent = 'Add Expense';
+    }
+  }
+  
+  updateButtonLabels();
+  
+  window.addEventListener('resize', updateButtonLabels);
+
 init();

@@ -121,6 +121,12 @@ input[type=number] {
   margin: 20px;
 }
 
+footer {
+
+  color: #7482E1;
+  padding: 10px;
+}
+
 #error {
 
   color: red;
@@ -169,6 +175,12 @@ input[type=number] {
 }
 
 @media (max-width: 768px) {
+
+  header {
+
+    padding: 15px;
+}
+
   .tracker {
     flex-direction: column;
     width: 100%;
@@ -179,4 +191,34 @@ input[type=number] {
     margin: 20px 0;
 }
 
+  .header-buttons {
+
+    height: 60px;
+    width: 60px;
+  }
+
+  .shown-input {
+
+    font-size: 35px;
+  }
+
+  .income-tracker, .expense-tracker {
+
+    border: 0;
+    border-radius: 0;
+    border-bottom: 5px solid #DBDBDC;
+  }
+
+  #adding-btns {
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  #income-btn, #expense-btn {
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
