@@ -121,6 +121,12 @@ input[type=number] {
   margin: 20px;
 }
 
+footer {
+
+  color: #7482E1;
+  padding: 10px;
+}
+
 #error {
 
   color: red;
@@ -207,5 +213,12 @@ input[type=number] {
 
     display: flex;
     flex-direction: column;
+  }
+
+  #income-btn, #expense-btn {
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
