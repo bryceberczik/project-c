@@ -121,10 +121,36 @@ input[type=number] {
   margin: 20px;
 }
 
+.graph-container {
+
+  display: flex;
+  flex-direction: row;
+}
+
+.graph {
+
+  margin: 50px 0;
+  text-align: center;
+  color: #7482E1;
+}
+
+.container {
+
+  margin-top: 60px;
+}
+
 footer {
 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
   color: #7482E1;
   padding: 10px;
+}
+
+footer a {
+
+  color: inherit;
 }
 
 #error {
@@ -173,6 +199,11 @@ footer {
   background-color: red;
   border: 1px solid red;
 }
+
+/* #pie-graph {
+
+  width: 10
+} */
 
 @media (max-width: 768px) {
 

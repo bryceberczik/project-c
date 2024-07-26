@@ -1,27 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const initialAmountInput = document.getElementById('initialAmountInput');
-    const incomeAmount = document.getElementById('incomeAmount');
-    const expenseAmount = document.getElementById('expenseAmount');
-
-    if (initialAmountInput) {
-        initialAmountInput.addEventListener('input', function() {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-    }
-
-    if (incomeAmount) {
-        incomeAmount.addEventListener('input', function() {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-    }
-
-    if (expenseAmount) {
-        expenseAmount.addEventListener('input', function() {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-    }
-});
-
 let userName;
 let initialAmount;
 
@@ -95,15 +71,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const errorMessage = document.getElementById('error1');
         const addIncomeModal = bootstrap.Modal.getInstance(document.getElementById('addIncomeModal'));
         const incomeList = document.getElementById('income-list');
-    
+
         if (income === '' || subject === '') {
             
             errorMessage.textContent = `All fields are required. Please fill out the form completely.`;
         } else {
 
-            let initialAmount = parseFloat(localStorage.getItem('initialAmount')) || 0; // Retrieve and parse initialAmount
-            initialAmount += income; // Subtract income from initialAmount
+            let allTimeIncome = parseFloat(localStorage.getItem('allTimeIncome')) || 0;
+            allTimeIncome += income;
+            localStorage.setItem(`allTimeIncome`, allTimeIncome);
 
+            let initialAmount = parseFloat(localStorage.getItem('initialAmount')) || 0;
+            initialAmount += income;
+            initialAmount = parseFloat(initialAmount).toFixed(2);
         let incomes = JSON.parse(localStorage.getItem('incomes')) || [];
 
         let newIncome = {
@@ -112,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         incomes.push(newIncome);
+        
 
         localStorage.setItem('incomes', JSON.stringify(incomes));
         localStorage.setItem('initialAmount', initialAmount.toString());
@@ -126,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         incomeItem.style.color = '#68F553';
         incomeItem.style.textAlign = 'center';
         incomeItem.style.fontSize = '30px';
-        
+
         addIncomeModal.hide();
         income.value = '';
         subject.value = '';
@@ -146,9 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMessage.textContent = `All fields are required. Please fill out the form completely.`;
         } else {
 
+            let allTimeExpense = parseFloat(localStorage.getItem('allTimeExpense')) || 0;
+            allTimeExpense += expense;
+            localStorage.setItem(`allTimeExpense`, allTimeExpense);
+
             let initialAmount = parseFloat(localStorage.getItem('initialAmount')) || 0;
             initialAmount -= expense;
-
+            initialAmount = parseFloat(initialAmount).toFixed(2);
         let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
         let newExpense = {
@@ -257,7 +242,58 @@ function updateButtonLabels() {
     }
   }
   
+
+
+let pieGraph = document.getElementById('pie-graph').getContext('2d');
+let polarGraph = document.getElementById('polar-graph').getContext('2d');
+
+let allTimeIncome = parseFloat(localStorage.getItem('allTimeIncome')) || 0;
+let allTimeExpense = parseFloat(localStorage.getItem('allTimeExpense')) || 0;
+
+let massPieChart = new Chart(pieGraph, {
+  type: 'pie',
+  data: {
+    labels: ['Income', 'Expenses'],
+    datasets: [{
+        label: 'Total',
+        data: [
+            allTimeIncome,
+            allTimeExpense
+        ],
+        backgroundColor: [
+            '#68F553',
+            '#E07574'
+        ]
+    }],
+  },
+  options: {
+    maintainAspectRatio: false
+  }
+});
+
+let massPolarChart = new Chart(polarGraph, {
+    type: 'polarArea',
+    data: {
+      labels: ['Income', 'Expenses'],
+      datasets: [{
+          label: 'Total',
+          data: [
+              allTimeIncome,
+              allTimeExpense
+          ],
+          backgroundColor: [
+              '#68F553',
+              '#E07574'
+          ],
+      }],
+    },
+    options: {
+      maintainAspectRatio: false,
+    }
+  });
+
   updateButtonLabels();
+
   
   window.addEventListener('resize', updateButtonLabels);
 
