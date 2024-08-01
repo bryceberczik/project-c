@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const addIncomeModal = bootstrap.Modal.getInstance(document.getElementById('addIncomeModal'));
         const incomeList = document.getElementById('income-list');
 
-        if (income === '' || subject === '') {
+        if (isNaN(income) || subject.trim() === '') {
             
             errorMessage.textContent = `All fields are required. Please fill out the form completely.`;
         } else {
@@ -122,46 +122,66 @@ document.addEventListener('DOMContentLoaded', function() {
         const addExpenseModal = bootstrap.Modal.getInstance(document.getElementById('addExpenseModal'));
         const expenseList = document.getElementById('expense-list');
     
-        if (expense === '' || subject === '') {
-            
+        if (isNaN(expense) || subject.trim() === '') {
             errorMessage.textContent = `All fields are required. Please fill out the form completely.`;
         } else {
-
+    
             let allTimeExpense = parseFloat(localStorage.getItem('allTimeExpense')) || 0;
             allTimeExpense += expense;
             localStorage.setItem(`allTimeExpense`, allTimeExpense);
-
+    
             let initialAmount = parseFloat(localStorage.getItem('initialAmount')) || 0;
             initialAmount -= expense;
             initialAmount = parseFloat(initialAmount).toFixed(2);
-        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
-
-        let newExpense = {
-            amount: expense,
-            subject: subject
-        };
-
-        expenses.push(newExpense);
-
-        localStorage.setItem('expenses', JSON.stringify(expenses));
-        localStorage.setItem('initialAmount', initialAmount.toString());
-
-        let expenseItem = document.createElement('p');
-        expenseItem.textContent = `- ${subject}: $${expense}`
-        expenseList.appendChild(expenseItem);
-
-        let initialSpan = document.getElementById('initialSpan')
-        initialSpan.textContent = `Current balance: $${initialAmount}`;
-
-        expenseItem.style.color = '#E07574';
-        expenseItem.style.textAlign = 'center';
-        expenseItem.style.fontSize = '30px';
-        
-        addExpenseModal.hide();
-        expense.value = '';
-        subject.value = '';
+            let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+    
+            let newExpense = {
+                amount: expense,
+                subject: subject
+            };
+    
+            expenses.push(newExpense);
+    
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            localStorage.setItem('initialAmount', initialAmount.toString());
+    
+            let expenseItem = document.createElement('p');
+            expenseItem.textContent = `- ${subject}: $${expense}`;
+            expenseList.appendChild(expenseItem);
+    
+            let initialSpan = document.getElementById('initialSpan');
+            initialSpan.textContent = `Current balance: $${initialAmount}`;
+    
+            expenseItem.style.color = '#E07574';
+            expenseItem.style.textAlign = 'center';
+            expenseItem.style.fontSize = '30px';
+    
+            addExpenseModal.hide();
         }
-    })
+    });
+
+    function checkLocalStorage() {
+        const incomeList = document.getElementById('income-list');
+        const expenseList = document.getElementById('expense-list');
+
+        const incomes = JSON.parse(localStorage.getItem('incomes'));
+        const expenses = JSON.parse(localStorage.getItem('expenses'));
+
+        if (!incomes || incomes.length === 0) {
+            const noIncomeMessage = document.createElement('p');
+            noIncomeMessage.textContent = 'No income added yet.';
+            incomeList.appendChild(noIncomeMessage);
+        }
+
+        if (!expenses || expenses.length === 0) {
+            const noExpenseMessage = document.createElement('p');
+            noExpenseMessage.textContent = 'No expense added yet.';
+            expenseList.appendChild(noExpenseMessage);
+        }
+    }
+
+    checkLocalStorage();
+
 });
 
 function renderIncomes() {
@@ -291,6 +311,28 @@ let massPolarChart = new Chart(polarGraph, {
       maintainAspectRatio: false,
     }
   });
+
+  // Get the button
+let scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    scrollToTopBtn.style.display = "block";
+  } else {
+    scrollToTopBtn.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+scrollToTopBtn.addEventListener('click', function() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+});
 
   updateButtonLabels();
 
