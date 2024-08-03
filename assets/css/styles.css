@@ -389,6 +389,13 @@ body.dark-mode #scrollToTopBtn:hover {
     border-bottom: 5px solid #DBDBDC;
   }
 
+  body.dark-mode .income-tracker,
+  body.dark-mode .expense-tracker {
+
+    border: 0;
+    border-radius: 0;
+    border-bottom: 5px solid #555;
+  }
   #adding-btns {
 
     display: flex;
