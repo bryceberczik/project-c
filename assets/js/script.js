@@ -206,6 +206,26 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.clear();
         location.reload();
     });
+
+    const themeToggle = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    // Load theme from localStorage
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme === "dark-mode") {
+        body.classList.add("dark-mode");
+        themeToggle.checked = true;
+    }
+
+    // Toggle theme on switch change
+    themeToggle.addEventListener("change", function () {
+        body.classList.toggle("dark-mode", this.checked);
+        if (this.checked) {
+            localStorage.setItem("theme", "dark-mode");
+        } else {
+            localStorage.setItem("theme", "light-mode");
+        }
+    });
 });
 
 function renderIncomes() {
