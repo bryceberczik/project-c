@@ -329,7 +329,7 @@ body.dark-mode #submitExpense:hover {
   z-index: 99;
   border: none;
   outline: none;
-  background-color: #444;
+  background-color: #999;
   color: white;
   cursor: pointer;
   padding: 15px;
@@ -339,6 +339,16 @@ body.dark-mode #submitExpense:hover {
 }
 
 #scrollToTopBtn:hover {
+  background-color: #888;
+}
+
+body.dark-mode #scrollToTopBtn {
+
+  background-color: #444;
+}
+
+body.dark-mode #scrollToTopBtn:hover {
+
   background-color: #333;
 }
 
